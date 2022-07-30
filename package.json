@@ -1,0 +1,125 @@
+{
+    "name": "github-trending",
+    "displayName": "Github Trending",
+    "version": "0.1.0",
+    "publisher": "TaipaXu",
+    "description": "See what the GitHub community is most excited about in Visual Studio Code.",
+    "author": {
+        "name": "Taipa Xu",
+        "url": "https://github.com/TaipaXu"
+    },
+    "homepage": "https://github.com/TaipaXu/github-trending",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TaipaXu/github-trending"
+    },
+    "bugs": "https://github.com/TaipaXu/github-trending/issues",
+    "license": "GPL-3.0",
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "github",
+        "trending",
+        "github trending",
+        "github-trending"
+    ],
+    "engines": {
+        "vscode": "^1.69.0"
+    },
+    "activationEvents": [
+        "onCommand:github-trending.daily",
+        "onCommand:github-trending.weekly",
+        "onCommand:github-trending.monthly"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "viewsWelcome": [
+            {
+                "view": "trending",
+                "contents": "[Daily](command:github-trending.daily)\n[Weekly](command:github-trending.weekly)\n[Monthly](command:github-trending.monthly)\n Visit [this project](https://github.com/TaipaXu/github-trending-vscode)\n"
+            }
+        ],
+        "commands": [
+            {
+                "command": "github-trending.daily",
+                "title": "D"
+            },
+            {
+                "command": "github-trending.weekly",
+                "title": "W"
+            },
+            {
+                "command": "github-trending.monthly",
+                "title": "M"
+            },
+            {
+                "command": "github-trending.openInBrowser",
+                "title": "Open in browser",
+                "icon": "$(globe)"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "githubTrending",
+                    "title": "Github Trending",
+                    "icon": "images/icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "githubTrending": [
+                {
+                    "id": "trending",
+                    "name": "Github Trending"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "github-trending.daily",
+                    "when": "view == trending",
+                    "title": "daily",
+                    "group": "navigation@0"
+                },
+                {
+                    "command": "github-trending.weekly",
+                    "when": "view == trending",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "github-trending.monthly",
+                    "when": "view == trending",
+                    "group": "navigation@2"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "github-trending.openInBrowser",
+                    "when": "view == trending",
+                    "title": "openInBrowser",
+                    "group": "inline"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "build-base": "esbuild ./src/extension.ts --bundle --loader:.svg=text --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+        "dev": "npm run build-base -- --sourcemap --watch",
+        "build": "npm run build-base -- --minify",
+        "package": "vsce package --no-dependencies"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.69.0",
+        "esbuild": "^0.14.50",
+        "vsce": "^2.10.0"
+    },
+    "dependencies": {
+        "axios": "^0.27.2",
+        "cheerio": "1.0.0-rc.12",
+        "js-base64": "^3.7.2",
+        "marked": "^4.0.18"
+    }
+}
