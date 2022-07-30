@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
-import cheerio from 'cheerio';
+import cheerio, { CheerioAPI, Cheerio, Element } from 'cheerio';
 import { getTrending as RGetTrending } from './apis/trending';
 import { TrendingSince as MTrendingSince } from './models/trendingSince';
+import getTreeIcon from './utils/icon';
 
 export class ExplorerTree implements vscode.TreeDataProvider<vscode.TreeItem> {
     private onDidChangeTreeDataEvent: vscode.EventEmitter<any> = new vscode.EventEmitter<any>();
@@ -19,19 +20,21 @@ export class ExplorerTree implements vscode.TreeDataProvider<vscode.TreeItem> {
         const nodes: vscode.TreeItem[] = [];
         try {
             const response = await RGetTrending(this.since);
-            const $ = cheerio.load(response.data);
-            const items = $('.Box-row');
+            const $: CheerioAPI = cheerio.load(response.data);
+            const items: Cheerio<Element> = $('.Box-row');
             items.each((i, item) => {
-                const title = $(item).find('.lh-condensed').text().replace(/\s+/g, '');
-                const list = title.split('/');
-                const userName = list[0];
-                const repoName = list[1];
-                const description = $(item).find('.my-1').text().trim();
-                const startCount = $(item).find('a.mr-3').first().text().replace(/\s+/g, '');
+                const title: string = $(item).find('.lh-condensed').text().replace(/\s+/g, '');
+                const list: string[] = title.split('/');
+                const userName: string = list[0];
+                const repoName: string = list[1];
+                const description: string = $(item).find('.my-1').text().trim();
+                const startCount: string = $(item).find('a.mr-3').first().text().replace(/\s+/g, '');
+                const language: string = $(item).find('span[itemprop="programmingLanguage"]').text();
 
-                const node = new vscode.TreeItem(repoName, vscode.TreeItemCollapsibleState.None);
+                const node: vscode.TreeItem = new vscode.TreeItem(repoName, vscode.TreeItemCollapsibleState.None);
                 node.description = `    ☆ ${startCount}`;
                 node.tooltip = description;
+                node.iconPath = getTreeIcon(language.toLowerCase());
                 node.command = {
                     command: 'github-trending.select',
                     title: repoName,
