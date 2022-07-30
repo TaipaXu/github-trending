@@ -27,6 +27,7 @@
     "engines": {
         "vscode": "^1.69.0"
     },
+    "icon": "images/icon.png",
     "activationEvents": [
         "onCommand:github-trending.daily",
         "onCommand:github-trending.weekly",
