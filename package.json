@@ -8,12 +8,12 @@
         "name": "Taipa Xu",
         "url": "https://github.com/TaipaXu"
     },
-    "homepage": "https://github.com/TaipaXu/github-trending",
+    "homepage": "https://github.com/TaipaXu/github-trending-vscode",
     "repository": {
         "type": "git",
-        "url": "https://github.com/TaipaXu/github-trending"
+        "url": "https://github.com/TaipaXu/github-trending-vscode"
     },
-    "bugs": "https://github.com/TaipaXu/github-trending/issues",
+    "bugs": "https://github.com/TaipaXu/github-trending-vscode/issues",
     "license": "GPL-3.0",
     "categories": [
         "Other"
