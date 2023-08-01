@@ -56,10 +56,21 @@ export function activate(context: vscode.ExtensionContext) {
                         </head>
                         <body>
                             ${markdown}
+
+                            <script>
+                                window.addEventListener('message', (event) => {
+                                    if (event.data.type === 'init') {
+                                        window.scroll(0, 0);
+                                    }
+                                });
+                            </script>
                         </body>
                     </html>`;
 
                 webviewPanel!.webview.html = html;
+                webviewPanel!.webview.postMessage({
+                    "type": "init",
+                });
             } catch (error) {
 
             }
