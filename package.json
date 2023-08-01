@@ -113,15 +113,15 @@
         "package": "vsce package --no-dependencies"
     },
     "devDependencies": {
-        "@types/vscode": "^1.69.0",
-        "esbuild": "^0.14.50",
-        "vsce": "^2.10.0"
+        "@types/vscode": "^1.80.0",
+        "esbuild": "^0.18.17",
+        "vsce": "^2.15.0"
     },
     "dependencies": {
-        "axios": "^0.27.2",
+        "axios": "^1.4.0",
         "cheerio": "1.0.0-rc.12",
         "devicon": "^2.15.1",
-        "js-base64": "^3.7.2",
-        "marked": "^4.0.18"
+        "js-base64": "^3.7.5",
+        "marked": "^6.0.0"
     }
 }
